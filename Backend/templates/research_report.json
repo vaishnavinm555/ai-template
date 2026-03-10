@@ -1,0 +1,11 @@
+{
+    "template_name": "Research Report",
+    "sections": [
+        "Abstract",
+        "Introduction",
+        "Methodology",
+        "Results",
+        "Discussion",
+        "Conclusion"
+    ]
+}

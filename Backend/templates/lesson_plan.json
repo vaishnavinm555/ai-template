@@ -1,0 +1,14 @@
+{
+    "template_name": "Lesson Plan",
+    "sections": [
+        "Course Title",
+        "Course Duration",
+        "Course Objective",
+        "Topics to Cover",
+        "Target Audience",
+        "Learning Outcomes",
+        "Teaching Methodology",
+        "Assessments & Evaluation",
+        "Additional Resources"
+    ]
+}
