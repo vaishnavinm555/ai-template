@@ -1,1 +1,8 @@
 node_modules
+.venv
+.env
+__pycache__
+Backend/output/
+Backend/uploads/
+venv/
+*.log

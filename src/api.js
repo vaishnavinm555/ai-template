@@ -9,10 +9,8 @@ export const checkHealth = async () => {
     return response.data;
 };
 
-export const uploadFile = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await api.post('/upload', formData, {
+export const generateReport = async (formData) => {
+    const response = await api.post('/generate', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

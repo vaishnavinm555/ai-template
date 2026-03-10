@@ -1,25 +1,12 @@
 {
-    "template_name": "Research Paper",
+    "template_name": "Academic Research Paper",
     "sections": [
-        {
-            "name": "Title",
-            "prompt": "Create a catchy and professional title for this research summary."
-        },
-        {
-            "name": "Abstract",
-            "prompt": "Summarize the key points and findings of the document in under 200 words."
-        },
-        {
-            "name": "Introduction",
-            "prompt": "Outline the context and problem addressed in the research."
-        },
-        {
-            "name": "Methodology",
-            "prompt": "Describe the approach and techniques used in the research if mentioned."
-        },
-        {
-            "name": "Conclusion",
-            "prompt": "Synthesize the results and suggest potential future work."
-        }
+        "📘 Abstract",
+        "🔎 Introduction",
+        "📖 Methodology",
+        "📊 Results and Analysis",
+        "💡 Discussion",
+        "🎯 Conclusion",
+        "📚 References"
     ]
 }

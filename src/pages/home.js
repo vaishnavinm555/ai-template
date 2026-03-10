@@ -28,7 +28,6 @@ const Home = () => {
     const [courseObjective, setCourseObjective] = useState("");
     const [topicsToCover, setTopicsToCover] = useState("");
     const [targetAudience, setTargetAudience] = useState("");
-    const [learningOutcomes, setLearningOutcomes] = useState("");
     const [teachingMethodology, setTeachingMethodology] = useState("");
     const [assessmentsEvaluation, setAssessmentsEvaluation] = useState("");
     const [additionalResources, setAdditionalResources] = useState("");
@@ -66,7 +65,6 @@ const Home = () => {
             extraData.courseObjective = courseObjective;
             extraData.topicsToCover = topicsToCover;
             extraData.targetAudience = targetAudience;
-            extraData.learningOutcomes = learningOutcomes;
             extraData.teachingMethodology = teachingMethodology;
             extraData.assessmentsEvaluation = assessmentsEvaluation;
             extraData.additionalResources = additionalResources;
@@ -111,8 +109,7 @@ const Home = () => {
                     </div>
                     {[
                         { label: "Course Objectives", value: courseObjective, setter: setCourseObjective, placeholder: "Main goals..." },
-                        { label: "Topics to Cover", value: topicsToCover, setter: setTopicsToCover, placeholder: "List topics..." },
-                        { label: "Learning Outcomes", value: learningOutcomes, setter: setLearningOutcomes, placeholder: "What will they learn?" }
+                        { label: "Topics to Cover", value: topicsToCover, setter: setTopicsToCover, placeholder: "List topics..." }
                     ].map((idx) => (
                         <div key={idx.label} style={{ marginBottom: "12px" }}>
                             <label style={labelStyle}>{idx.label}</label>

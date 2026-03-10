@@ -97,25 +97,41 @@ async def generate_report(
                 extra_details_str += "Provide a logical session-by-session schedule covering the entire duration."
 
     if text_content:
+        sections = template_data.get('sections', [])
         ai_prompt = (
-            f"You are a professional academic assistant. Generate a high-quality, comprehensive {template_data.get('template_name')} "
-            f"on the topic/title: '{topic}'. \n\n"
-            f"The user has provided these specific requirements/details:\n{extra_details_str}\n\n"
-            f"Use the provided reference document as a key source of truth, "
-            f"but DO NOT just summarize or extract it. Write a completely original document. \n\n"
-            f"Strictly follow these sections: {list(template_data.get('sections'))}."
+            f"ACT AS A PROFESSIONAL DOCUMENT ENGINE. Generate a visually polished {template_data.get('template_name')} "
+            f"specifically for '{topic}'. \n\n"
+            f"DOCUMENT STRUCTURE RULES:\n"
+            f"- Follow these exact sections: {sections}\n"
+            f"- Include professional icons (📘, 🎯, 📊, etc.) as seen in our style guide.\n"
+            f"- Use tables for schedules and timelines.\n"
+            f"- Use horizontal dividers (---) between major sections.\n\n"
+            f"USER DETAILS TO INCORPORATE:\n{extra_details_str}\n\n"
+            f"REFERENCE MATERIAL:\nUse the provided document text as the factual source of truth."
         )
     else:
+        sections = template_data.get('sections', [])
         ai_prompt = (
-            f"You are a professional academic assistant. Generate a high-quality, comprehensive {template_data.get('template_name')} "
-            f"on the topic/title: '{topic}'. \n\n"
-            f"The user has provided these specific requirements/details:\n{extra_details_str}\n\n"
-            f"Generate the content from scratch ensuring it is pedagogically sound and detailed. \n\n"
-            f"Strictly follow these sections: {list(template_data.get('sections'))}."
+            f"ACT AS A PROFESSIONAL DOCUMENT ENGINE. Generate a high-quality, comprehensive {template_data.get('template_name')} "
+            f"on the topic: '{topic}'. \n\n"
+            f"DOCUMENT STRUCTURE RULES:\n"
+            f"- Follow these exact sections: {sections}\n"
+            f"- Include professional icons (📘, 🎯, 📊, etc.) as requested.\n"
+            f"- Use tables for all schedules and implementation plans.\n"
+            f"- Use horizontal dividers (---) between major sections.\n\n"
+            f"USER SPECIFICATIONS:\n{extra_details_str}\n\n"
+            f"TASK: Generate detailed, pedagogical, and professional content from scratch."
         )
     
     # 4. Call AI Generator
+    print(f"DEBUG: Generating report for template: {template}")
     report_text = generate_report_with_ai(ai_prompt, text_content if text_content else "No reference document provided.")
+    
+    if report_text.startswith("Error with Gemini generation:"):
+        print(f"AI Error: {report_text}")
+        raise HTTPException(status_code=500, detail=report_text)
+        
+    print(f"DEBUG: Report text generated (first 100 chars): {report_text[:100]}")
     
     # 5. Export Files
     report_id = uuid.uuid4().hex
@@ -130,7 +146,7 @@ async def generate_report(
     
     # TXT
     txt_filename = f"report_{report_id}.txt"
-    with open(os.path.join(OUTPUT_DIR, txt_filename), "w") as f:
+    with open(os.path.join(OUTPUT_DIR, txt_filename), "w", encoding="utf-8") as f:
         f.write(report_text)
 
     return {

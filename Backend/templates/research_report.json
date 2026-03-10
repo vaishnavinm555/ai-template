@@ -1,11 +1,11 @@
 {
-    "template_name": "Research Report",
+    "template_name": "Professional Report",
     "sections": [
-        "Abstract",
-        "Introduction",
-        "Methodology",
-        "Results",
-        "Discussion",
-        "Conclusion"
+        "📘 Executive Summary",
+        "🔎 Background",
+        "📊 Key Findings",
+        "📅 Timeline or Implementation Plan",
+        "💡 Recommendations",
+        "📚 References"
     ]
 }
