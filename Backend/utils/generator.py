@@ -1,4 +1,5 @@
 import os
+from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,8 +10,6 @@ def generate_report_with_ai(prompt_instruction, content):
     Incorporates professional visual styling rules.
     """
     try:
-        from google import genai
-
         api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
             return "Gemini API Key is required. Please set GEMINI_API_KEY in your .env file."

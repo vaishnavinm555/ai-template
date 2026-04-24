@@ -1,4 +1,5 @@
 google-generativeai
+google-genai
 python-dotenv
 fastapi
 uvicorn
@@ -6,3 +7,8 @@ python-multipart
 reportlab
 python-docx
 pymupdf
+sqlalchemy
+python-jose[cryptography]
+passlib[bcrypt]
+pandas
+openpyxl

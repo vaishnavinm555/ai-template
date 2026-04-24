@@ -1,0 +1,14 @@
+{
+    "template_name": "Professional Lesson Plan",
+    "sections": [
+        "📘 Course Overview",
+        "🎯 Learning Objectives",
+        "👥 Target Audience",
+        "⏱ Course Duration",
+        "🧠 Topics Covered",
+        "📖 Teaching Methodology",
+        "📅 Lesson Schedule (Detailed Table)",
+        "📝 Assessment Strategy",
+        "📚 Additional Resources"
+    ]
+}

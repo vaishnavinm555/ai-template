@@ -11,13 +11,13 @@ const UploadFile = ({ setFile }) => {
         <div style={containerStyle}>
             <input
                 type="file"
-                accept=".pdf,.docx"
+                accept=".pdf,.docx,.csv,.xlsx,.xls"
                 onChange={handleFileChange}
                 style={inputStyle}
                 id="file-upload"
             />
             <label htmlFor="file-upload" style={labelStyle}>
-                Choose File (PDF/DOCX)
+                Choose File (PDF/DOCX/CSV/Excel)
             </label>
         </div>
     );

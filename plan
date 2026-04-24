@@ -1,0 +1,70 @@
+Enhance my existing academic platform (which already includes report generation, lesson planner, and research report modules) by adding an Attendance-Based Post-Class Feedback System.
+
+You can either integrate this into the current dashboard or create a separate module, whichever results in a cleaner and more scalable design.
+
+Requirements:
+
+1. Roles & Authentication:
+- Support three roles: Faculty, Student, Admin
+- Students must log in to access their dashboard
+- Use role-based access control
+
+2. Student Dataset:
+- Maintain a structured student database with fields:
+  student_id, name, email, department, year
+- Each student should be uniquely identifiable
+
+3. Class & Attendance Management:
+- Faculty should be able to:
+  - Create/select a class session (course, date)
+  - View list of enrolled students
+  - Mark attendance (Present/Absent) via UI (checkbox or toggle)
+- Store attendance with:
+  class_id, student_id, status (present/absent), marked_by (faculty_id), timestamp
+
+4. Feedback Access Control (Critical Logic):
+- Students should only be able to give feedback if:
+  - They are marked as "present" for that class
+- If absent:
+  - Feedback option must be hidden or disabled
+- Prevent duplicate feedback submissions per class per student
+
+5. Student Dashboard:
+- After login, students should see:
+  - List of attended classes
+  - “Give Feedback” button only for eligible classes
+- Feedback form should include:
+  - Rating (1–5)
+  - Comments
+  - Suggestions (optional)
+
+6. Anonymity & Visibility:
+- Faculty should see only anonymous feedback (no student identity)
+- Admin should see full details:
+  student_id, timestamp, feedback content
+
+7. Database Design:
+- Create and relate tables:
+  students, classes, attendance, feedback
+- Ensure proper foreign key relationships
+- Enforce one feedback per student per class
+
+8. Integration:
+- Link feedback data to existing report generation module
+- Allow reports to include:
+  - average rating
+  - feedback summary
+  - insights
+
+9. UI/UX:
+- Faculty: Attendance marking interface
+- Student: Clean feedback submission interface
+- Admin: Full visibility dashboard
+
+10. Optional Enhancements:
+- Add submission deadline for feedback after class
+- Show feedback submission status (pending/submitted)
+- Add simple analytics (average ratings per class)
+
+Build this as a scalable, clean, production-ready module that integrates seamlessly with the existing system.	
+

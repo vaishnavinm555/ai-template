@@ -1,0 +1,11 @@
+{
+    "template_name": "Professional Report",
+    "sections": [
+        "📘 Executive Summary",
+        "🔎 Background",
+        "📊 Key Findings",
+        "📅 Timeline or Implementation Plan",
+        "💡 Recommendations",
+        "📚 References"
+    ]
+}

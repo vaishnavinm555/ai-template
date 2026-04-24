@@ -67,9 +67,10 @@ def create_pdf_report(content_text, filename, title="AI Generated Academic Docum
     elements = []
     
     # Title
-    safe_title = html.escape(title)
-    elements.append(Paragraph(safe_title, title_style))
-    elements.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#1a5f7a'), spaceAfter=20))
+    if title:
+        safe_title = html.escape(title)
+        elements.append(Paragraph(safe_title, title_style))
+        elements.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#1a5f7a'), spaceAfter=20))
 
     # Process content line by line with simple table state machine
     lines = content_text.split('\n')
@@ -85,7 +86,25 @@ def create_pdf_report(content_text, filename, title="AI Generated Academic Docum
             if re.match(r'^\|[\s\-\:\!\|]+\|$', stripped_line):
                 continue
             
-            cells = [cell.strip() for cell in stripped_line.split('|') if cell.strip() or (cell == '' and stripped_line.count('|') > 1)]
+            # More robust cell splitting
+            raw_cells = stripped_line.strip('|').split('|')
+            cells = []
+            for cell in raw_cells:
+                # Escape common HTML characters first to prevent crashing
+                text = html.escape(cell.strip())
+                
+                # Restore/Replace specific tags for ReportLab Paragraph
+                text = text.replace("&lt;br&gt;", "<br/>")
+                text = text.replace("&lt;br /&gt;", "<br/>")
+                text = text.replace("&lt;br/&gt;", "<br/>")
+                
+                # Handle basic markdown bold/italic inside cells
+                text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
+                text = re.sub(r'\*(.*?)\*', r'<i>\1</i>', text)
+                
+                # Wrap each cell in a Paragraph for multi-line support and wrapping
+                cells.append(Paragraph(text, body_style))
+            
             if cells:
                 table_data.append(cells)
                 is_table = True
@@ -94,7 +113,12 @@ def create_pdf_report(content_text, filename, title="AI Generated Academic Docum
             if is_table:
                 # Flush table
                 if table_data:
-                    t = Table(table_data, hAlign='LEFT')
+                    num_cols = len(table_data[0]) if table_data else 1
+                    # Page width minus margins (8.5 inches = 612 points)
+                    available_width = doc.width 
+                    col_width = available_width / num_cols
+                    
+                    t = Table(table_data, colWidths=[col_width] * num_cols, hAlign='CENTER')
                     t.setStyle(TableStyle([
                         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f2f2f2')),
                         ('TEXTCOLOR', (0, 0), (-1, 0), colors.HexColor('#333333')),
@@ -103,9 +127,11 @@ def create_pdf_report(content_text, filename, title="AI Generated Academic Docum
                         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
                         ('BACKGROUND', (0, 1), (-1, -1), colors.white),
                         ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-                        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                        ('VALIGN', (0, 0), (-1, -1), 'TOP'), # TOP is better for paragraphs
                         ('LEFTPADDING', (0, 0), (-1, -1), 6),
                         ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+                        ('TOPPADDING', (0, 0), (-1, -1), 6),
+                        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
                     ]))
                     elements.append(t)
                     elements.append(Spacer(1, 15))
@@ -143,10 +169,14 @@ def create_pdf_report(content_text, filename, title="AI Generated Academic Docum
 
     # Catch last table if file ends with one
     if is_table and table_data:
-        t = Table(table_data, hAlign='LEFT')
+        num_cols = len(table_data[0]) if table_data else 1
+        available_width = doc.width
+        col_width = available_width / num_cols
+        t = Table(table_data, colWidths=[col_width] * num_cols, hAlign='CENTER')
         t.setStyle(TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f2f2f2')),
             ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
         ]))
         elements.append(t)
 

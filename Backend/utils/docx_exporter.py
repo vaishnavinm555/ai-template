@@ -3,6 +3,7 @@ import re
 from docx import Document
 from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.table import WD_TABLE_ALIGNMENT
 
 def create_docx_report(content_text, filename, title="AI Generated Academic Document"):
     """
@@ -16,8 +17,9 @@ def create_docx_report(content_text, filename, title="AI Generated Academic Docu
     doc = Document()
 
     # Title
-    t = doc.add_heading(title, 0)
-    t.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    if title:
+        t = doc.add_heading(title, 0)
+        t.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
     # Process content
     lines = content_text.split('\n')
@@ -44,6 +46,7 @@ def create_docx_report(content_text, filename, title="AI Generated Academic Docu
                     cols = max(len(row) for row in table_data)
                     table = doc.add_table(rows=rows, cols=cols)
                     table.style = 'Table Grid'
+                    table.alignment = WD_TABLE_ALIGNMENT.CENTER
                     for r in range(rows):
                         for c in range(len(table_data[r])):
                             table.cell(r, c).text = table_data[r][c]
@@ -94,6 +97,7 @@ def create_docx_report(content_text, filename, title="AI Generated Academic Docu
         cols = max(len(row) for row in table_data)
         table = doc.add_table(rows=rows, cols=cols)
         table.style = 'Table Grid'
+        table.alignment = WD_TABLE_ALIGNMENT.CENTER
         for r in range(rows):
             for c in range(len(table_data[r])):
                 table.cell(r, c).text = table_data[r][c]

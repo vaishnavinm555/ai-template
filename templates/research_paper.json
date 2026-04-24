@@ -1,0 +1,12 @@
+{
+    "template_name": "Academic Research Paper",
+    "sections": [
+        "📘 Abstract",
+        "🔎 Introduction",
+        "📖 Methodology",
+        "📊 Results and Analysis",
+        "💡 Discussion",
+        "🎯 Conclusion",
+        "📚 References"
+    ]
+}

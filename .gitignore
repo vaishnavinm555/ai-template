@@ -1,8 +1,28 @@
+# Dependencies
 node_modules
 .venv
-.env
+venv
+env
 __pycache__
+*.pyc
+
+# Environment & Private data
+.env
+*.db
+*.sqlite3
+
+# Build & Output
+output/
 Backend/output/
 Backend/uploads/
-venv/
+dist/
+build/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
 *.log

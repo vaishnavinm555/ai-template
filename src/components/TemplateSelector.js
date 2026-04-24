@@ -8,6 +8,7 @@ const TemplateSelector = ({ template, setTemplate }) => {
                 <option value="research_report">Research Report</option>
                 <option value="lesson_plan">Lesson Plan</option>
                 <option value="research_paper">Research Paper</option>
+                <option value="data_summary">Data Summarization</option>
             </select>
         </div>
     );
